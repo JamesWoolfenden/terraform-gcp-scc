@@ -42,10 +42,10 @@ No modules.
 
 | Name | Type |
 | ---- | ---- |
-| [google_kms_crypto_key_iam_member.pubsub_service_agent](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_crypto_key_iam_member) | resource |
 | [google-beta_google_project_service_identity.pubsub](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_project_service_identity) | resource |
-| [google_pubsub_topic_iam_member.scc_publisher](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic_iam_member) | resource |
+| [google_kms_crypto_key_iam_member.pubsub_service_agent](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_crypto_key_iam_member) | resource |
 | [google_pubsub_topic.findings](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic) | resource |
+| [google_pubsub_topic_iam_member.scc_publisher](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic_iam_member) | resource |
 | [google_scc_management_organization_security_health_analytics_custom_module.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/scc_management_organization_security_health_analytics_custom_module) | resource |
 | [google_scc_mute_config.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/scc_mute_config) | resource |
 | [google_scc_notification_config.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/scc_notification_config) | resource |
@@ -54,14 +54,14 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| <a name="input_allowed_persistence_regions"></a> [allowed\_persistence\_regions](#input\_allowed\_persistence\_regions) | Regions where findings messages may be stored at rest (data residency) | `list(string)` | `["europe-west2"]` | no |
+| <a name="input_allowed_persistence_regions"></a> [allowed\_persistence\_regions](#input\_allowed\_persistence\_regions) | Regions where findings messages may be stored at rest (data residency) | `list(string)` | <pre>[<br/>  "europe-west2"<br/>]</pre> | no |
 | <a name="input_config_id"></a> [config\_id](#input\_config\_id) | ID of the SCC notification config | `string` | `"scc-findings"` | no |
-| <a name="input_custom_modules"></a> [custom\_modules](#input\_custom\_modules) | Optional Security Health Analytics custom modules keyed by display name: a CEL predicate over the listed resource types, with severity and recommendation | `map(object({ predicate = string, resource_types = list(string), severity = string, recommendation = string, description = optional(string), enablement_state = optional(string) }))` | `{}` | no |
+| <a name="input_custom_modules"></a> [custom\_modules](#input\_custom\_modules) | Optional Security Health Analytics custom modules keyed by display name: a CEL predicate over the listed resource types, with severity and recommendation | <pre>map(object({<br/>    predicate        = string<br/>    resource_types   = list(string)<br/>    severity         = string<br/>    recommendation   = string<br/>    description      = optional(string)<br/>    enablement_state = optional(string, "ENABLED")<br/>  }))</pre> | `{}` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the SCC notification config | `string` | `"Streams active, unmuted high and critical SCC findings to Pub/Sub"` | no |
 | <a name="input_kms_key_name"></a> [kms\_key\_name](#input\_kms\_key\_name) | Cloud KMS crypto key used to encrypt the findings topic (CMEK) | `string` | n/a | yes |
 | <a name="input_labels"></a> [labels](#input\_labels) | Labels to apply to the findings topic, for cost allocation and ownership tracking | `map(string)` | `{}` | no |
 | <a name="input_message_retention_duration"></a> [message\_retention\_duration](#input\_message\_retention\_duration) | How long the topic retains published messages, in seconds (e.g. 86400s), so subscribers can replay findings | `string` | `"604800s"` | no |
-| <a name="input_mute_configs"></a> [mute\_configs](#input\_mute\_configs) | Optional organization-level SCC mute configs keyed by mute config ID. Each needs a narrow filter and a description justifying why the findings are muted | `map(object({ filter = string, description = string }))` | `{}` | no |
+| <a name="input_mute_configs"></a> [mute\_configs](#input\_mute\_configs) | Optional organization-level SCC mute configs keyed by mute config ID. Each needs a narrow filter and a description justifying why the findings are muted | <pre>map(object({<br/>    filter      = string<br/>    description = string<br/>  }))</pre> | `{}` | no |
 | <a name="input_organization_id"></a> [organization\_id](#input\_organization\_id) | Numeric ID of the GCP organization Security Command Center is enabled on | `string` | n/a | yes |
 | <a name="input_streaming_filter"></a> [streaming\_filter](#input\_streaming\_filter) | SCC findings filter for the streaming notification config | `string` | `"state = \"ACTIVE\" AND mute != \"MUTED\" AND (severity = \"HIGH\" OR severity = \"CRITICAL\")"` | no |
 | <a name="input_topic_name"></a> [topic\_name](#input\_topic\_name) | Name of the Pub/Sub topic SCC findings are published to | `string` | `"scc-findings"` | no |
