@@ -8,5 +8,10 @@ resource "google_pubsub_topic" "findings" {
     allowed_persistence_regions = var.allowed_persistence_regions
   }
 
-  depends_on = [google_kms_crypto_key_iam_member.pubsub_service_agent]
+  # The direct grant edge is implied by the sleep; it is kept explicit so the
+  # ordering is visible here.
+  depends_on = [
+    google_kms_crypto_key_iam_member.pubsub_service_agent,
+    time_sleep.kms_propagation,
+  ]
 }

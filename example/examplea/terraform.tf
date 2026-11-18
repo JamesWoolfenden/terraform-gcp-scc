@@ -9,6 +9,10 @@ terraform {
       source  = "hashicorp/google-beta"
       version = "7.31.0"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = "0.13.1"
+    }
   }
   required_version = ">= 1.5.0"
 }

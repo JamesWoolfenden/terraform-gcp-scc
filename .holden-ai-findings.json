@@ -1,0 +1,29 @@
+{
+  "scan_date": "2026-11-18T00:00:00Z",
+  "scan_path": ".",
+  "category": "all",
+  "findings": [
+    {
+      "id": "HOLDEN_AI_001",
+      "status": "fixed",
+      "first_seen": "2026-11-18",
+      "last_seen": "2026-11-18",
+      "unresolved_since": null,
+      "suppression_reason": null,
+      "principle": "reliability",
+      "severity": "LOW",
+      "confidence": "medium",
+      "title": "CMEK topic and SCC notification config are created immediately after the IAM grants they rely on, with no propagation wait",
+      "file": "google_scc_notification_config.main.tf",
+      "line": 1,
+      "resource": "google_scc_notification_config.main",
+      "related_resources": ["google_pubsub_topic.findings", "google_kms_crypto_key_iam_member.pubsub_service_agent", "google_pubsub_topic_iam_member.scc_publisher"],
+      "explanation": "depends_on orders the graph but IAM grants return before they propagate (30-60s). The Pub/Sub topic validates CMEK access to var.kms_key_name at create, and the notification config is created right after granting the SCC service agent roles/pubsub.publisher on the topic, so a fresh first apply can fail with a permission error that only clears on retry. Principle is a best fit: this is an apply-time correctness issue. Other modules in this family already use time_sleep for exactly this.",
+      "remediation": "Insert time_sleep resources after the KMS grant (before the topic) and after the publisher grant (before the notification config).",
+      "fixable": true,
+      "fix": "resource \"time_sleep\" \"kms_propagation\" {\n  create_duration = \"60s\"\n  depends_on      = [google_kms_crypto_key_iam_member.pubsub_service_agent]\n}\n\nresource \"time_sleep\" \"publisher_propagation\" {\n  create_duration = \"60s\"\n  depends_on      = [google_pubsub_topic_iam_member.scc_publisher]\n}"
+    }
+  ],
+  "suggested_policies": [],
+  "suggested_suppressions": []
+}

@@ -8,5 +8,5 @@ resource "google_scc_notification_config" "main" {
     filter = var.streaming_filter
   }
 
-  depends_on = [google_pubsub_topic_iam_member.scc_publisher]
+  depends_on = [time_sleep.publisher_propagation]
 }

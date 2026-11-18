@@ -33,6 +33,7 @@ No requirements.
 | ---- | ------- |
 | <a name="provider_google"></a> [google](#provider\_google) | n/a |
 | <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | n/a |
+| <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
 ## Modules
 
@@ -49,6 +50,8 @@ No modules.
 | [google_scc_management_organization_security_health_analytics_custom_module.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/scc_management_organization_security_health_analytics_custom_module) | resource |
 | [google_scc_mute_config.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/scc_mute_config) | resource |
 | [google_scc_notification_config.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/scc_notification_config) | resource |
+| [time_sleep.kms_propagation](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [time_sleep.publisher_propagation](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 
 ## Inputs
 
